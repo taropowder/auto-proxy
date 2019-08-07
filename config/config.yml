@@ -1,0 +1,40 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+    simple:
+        format: "%(asctime)s | %(name)s | %(levelname)s\t| %(message)s"
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: simple
+    info_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: INFO
+        formatter: simple
+        filename: info.log
+        maxBytes: 1024
+#        backupCount: 5
+        encoding: "utf8"
+    error_file_handler:
+      class: logging.handlers.RotatingFileHandler
+      level: ERROR
+      formatter: simple
+      filename: error.log
+      maxBytes: 1024
+#      backupCount: 5
+      encoding: "utf8"
+
+loggers:
+    proxyLogger:
+        level: DEBUG
+        handlers: [console, info_file_handler,error_file_handler]
+        propagate: no
+roots:
+    level: ERROR
+    handlers: [console]
+    propagate: true
+
+
+model: proxies_pool
+proxis_file: proxis.txt
